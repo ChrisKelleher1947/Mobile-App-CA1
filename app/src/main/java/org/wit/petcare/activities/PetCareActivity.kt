@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.wit.petcare.databinding.ActivityPetcareBinding
+import org.wit.petcare.main.MainApp
 import org.wit.petcare.models.PetCareModel
 import timber.log.Timber
 import timber.log.Timber.i
@@ -16,6 +17,8 @@ class PetCareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPetcareBinding
     private var petRecord = PetCareModel()
+
+    lateinit var app: MainApp
     private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +28,8 @@ class PetCareActivity : AppCompatActivity() {
         binding = ActivityPetcareBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Timber.plant(Timber.DebugTree())
+        app = application as MainApp
+
         i("PetCare Activity started..")
 
         //Date picker button
@@ -44,6 +48,7 @@ class PetCareActivity : AppCompatActivity() {
                 petRecord.petName = name
                 petRecord.petType = type
                 petRecord.petBirthday = birthday
+                app.petRecords.add(petRecord)
 
                 i("Add Button Pressed: $petRecord")
                 Snackbar.make(it, "Pet saved successfully!", Snackbar.LENGTH_SHORT).show()
