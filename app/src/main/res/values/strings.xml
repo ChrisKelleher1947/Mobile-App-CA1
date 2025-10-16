@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Pet Care Manager</string>
-    <string name="toolbar_title">Pet Care Manager</string>
     <string name="hint_pet_name">Pet Name</string>
     <string name="hint_pet_type">Pet Type (e.g. Dog, Cat)</string>
     <string name="hint_pet_age">Age (in years)</string>
-    <string name="btn_save_pet">Save Pet</string>
+    <string name="button_add_pet">Save Pet</string>
+
 </resources>
