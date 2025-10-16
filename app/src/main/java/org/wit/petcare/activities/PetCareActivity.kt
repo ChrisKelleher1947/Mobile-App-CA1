@@ -1,59 +1,78 @@
 package org.wit.petcare.activities
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import org.wit.petcare.databinding.ActivityPetcareBinding
 import com.google.android.material.snackbar.Snackbar
+import org.wit.petcare.databinding.ActivityPetcareBinding
+import org.wit.petcare.models.PetCareModel
 import timber.log.Timber
 import timber.log.Timber.i
-import org.wit.petcare.models.PetCareModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PetCareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPetcareBinding
-    var petRecord = PetCareModel()
+    private var petRecord = PetCareModel()
+    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Inflate the layout using View Binding
         binding = ActivityPetcareBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         Timber.plant(Timber.DebugTree())
         i("PetCare Activity started..")
 
+        //Date picker button
+        binding.btnDatePicker.setOnClickListener {
+            showDatePicker()
+        }
+
+        //Save button
         binding.btnAddPet.setOnClickListener {
-            // Get field values
             val name = binding.petName.text.toString().trim()
             val type = binding.petType.text.toString().trim()
-            val age = binding.petAge.text.toString().trim()
+            val birthday = binding.tvSelectedDate.text.toString().replace("Selected Date: ", "").trim()
 
             // Check all fields
-            if (name.isNotEmpty() && type.isNotEmpty() && age.isNotEmpty()) {
+            if (name.isNotEmpty() && type.isNotEmpty() && birthday.isNotEmpty() && birthday != "No date selected") {
                 petRecord.petName = name
                 petRecord.petType = type
-                petRecord.petAge = age
+                petRecord.petBirthday = birthday
 
-                // Log full model when valid
                 i("Add Button Pressed: $petRecord")
-
                 Snackbar.make(it, "Pet saved successfully!", Snackbar.LENGTH_SHORT).show()
-            }
-            else {
-                // Build a user-friendly error message
+            } else {
                 val missingFields = mutableListOf<String>()
                 if (name.isEmpty()) missingFields.add("name")
                 if (type.isEmpty()) missingFields.add("type")
-                if (age.isEmpty()) missingFields.add("age")
+                if (birthday.isEmpty() || birthday == "No date selected") missingFields.add("birthday")
 
                 val message = "Please enter: ${missingFields.joinToString(", ")}"
                 Snackbar.make(it, message, Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun showDatePicker() {
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, month, dayOfMonth)
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate.time)
+                binding.tvSelectedDate.text = "Selected Date: $formattedDate"
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 }
