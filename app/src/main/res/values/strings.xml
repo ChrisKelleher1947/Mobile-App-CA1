@@ -8,5 +8,7 @@
     <string name="button_select_birthday">Select Birthday</string>
     <string name="label_no_date">No date selected</string>
     <string name="label_selected_date_prefix">Selected Date: %1$s</string>
+    <string name="menu_addPetRecord">Add</string>
+
 
 </resources>

@@ -10,8 +10,11 @@ import org.wit.petcare.databinding.ActivityPetRecordListBinding
 import org.wit.petcare.databinding.CardPetRecordBinding
 import org.wit.petcare.main.MainApp
 import org.wit.petcare.models.PetCareModel
+import android.view.Menu
+import org.wit.petcare.R
 
-class PlacemarkListActivity : AppCompatActivity() {
+
+class PetRecordListActivity : AppCompatActivity() {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPetRecordListBinding
@@ -20,6 +23,8 @@ class PlacemarkListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPetRecordListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.toolbar.title = title
+        setSupportActionBar(binding.toolbar)
 
         app = application as MainApp
 
@@ -27,7 +32,13 @@ class PlacemarkListActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = PetcareAdapter(app.petRecords)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 }
+
 
 class PetcareAdapter constructor(private var petrecords: List<PetCareModel>) :
     RecyclerView.Adapter<PetcareAdapter.MainHolder>() {
