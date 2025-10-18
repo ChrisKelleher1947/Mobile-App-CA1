@@ -12,7 +12,10 @@ import timber.log.Timber
 import timber.log.Timber.i
 import java.text.SimpleDateFormat
 import java.util.*
-
+import android.view.Menu
+import android.view.MenuItem
+import android.app.Activity
+import org.wit.petcare.R
 class PetCareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPetcareBinding
@@ -27,6 +30,7 @@ class PetCareActivity : AppCompatActivity() {
 
         binding = ActivityPetcareBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
 
@@ -52,6 +56,8 @@ class PetCareActivity : AppCompatActivity() {
 
                 i("Add Button Pressed: $petRecord")
                 Snackbar.make(it, "Pet saved successfully!", Snackbar.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
+                finish()
             } else {
                 val missingFields = mutableListOf<String>()
                 if (name.isEmpty()) missingFields.add("name")
@@ -62,6 +68,20 @@ class PetCareActivity : AppCompatActivity() {
                 Snackbar.make(it, message, Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_petcare, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showDatePicker() {

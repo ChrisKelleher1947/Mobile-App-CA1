@@ -1,23 +1,36 @@
 package org.wit.petcare.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.wit.petcare.R
 import org.wit.petcare.databinding.ActivityPetRecordListBinding
 import org.wit.petcare.databinding.CardPetRecordBinding
 import org.wit.petcare.main.MainApp
 import org.wit.petcare.models.PetCareModel
-import android.view.Menu
-import org.wit.petcare.R
 
 
 class PetRecordListActivity : AppCompatActivity() {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPetRecordListBinding
+
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0, app.petRecords.size)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +49,16 @@ class PetRecordListActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_add -> {
+                val launcherIntent = Intent(this, PetCareActivity::class.java)
+                getResult.launch(launcherIntent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 
