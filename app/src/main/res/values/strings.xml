@@ -4,7 +4,6 @@
     <string name="app_name">Pet Care Manager</string>
     <string name="hint_pet_name">Pet Name</string>
     <string name="hint_pet_type">Pet Type (e.g. Dog, Cat)</string>
-    <string name="hint_pet_age">Age (in years)</string>
     <string name="button_add_pet">Save Pet</string>
     <string name="button_select_birthday">Select Birthday</string>
     <string name="label_no_date">No date selected</string>
