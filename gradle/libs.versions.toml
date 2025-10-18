@@ -12,6 +12,7 @@ constraintlayout = "2.2.1"
 timber = "1.5.1"
 kotlinPlugin = "2.2.20"
 picasso = "2.71828"
+serialization = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,4 +30,6 @@ picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlinPlugin"  }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
 

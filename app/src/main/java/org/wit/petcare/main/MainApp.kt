@@ -1,18 +1,18 @@
 package org.wit.petcare.main
 
 import android.app.Application
-import org.wit.petcare.models.PetCareModel
+import org.wit.petcare.models.PetCareJSONStore
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val petRecords = ArrayList<PetCareModel>()
+    lateinit var petRecords: PetCareJSONStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("PetCare started")
-        print("fixing github")
+        petRecords = PetCareJSONStore(applicationContext)
     }
 }
