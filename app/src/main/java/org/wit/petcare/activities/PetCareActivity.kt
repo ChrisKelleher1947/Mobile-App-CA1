@@ -16,6 +16,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.app.Activity
 import org.wit.petcare.R
+import org.wit.petcare.adapters.PetcareAdapter
 class PetCareActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPetcareBinding
