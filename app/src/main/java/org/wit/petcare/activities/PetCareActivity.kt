@@ -53,7 +53,7 @@ class PetCareActivity : AppCompatActivity() {
                 petRecord.petName = name
                 petRecord.petType = type
                 petRecord.petBirthday = birthday
-                app.petRecords.add(petRecord)
+                app.petRecords.create(petRecord)
 
                 i("Add Button Pressed: $petRecord")
                 Snackbar.make(it, "Pet saved successfully!", Snackbar.LENGTH_SHORT).show()
