@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".activities.PetRecordDetailActivity">
+    tools:context="org.wit.petcare.activities.PetRecordDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Pet Details"
+            app:titleTextColor="@color/colorPrimary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Pet Info -->
         <TextView
             android:id="@+id/petNameDetail"
             android:layout_width="match_parent"
@@ -38,7 +58,6 @@
             android:layout_marginVertical="12dp"
             android:background="@android:color/darker_gray" />
 
-        <!-- Notes Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +76,6 @@
             android:background="@android:drawable/edit_text"
             android:padding="8dp" />
 
-        <!-- Feeding Time Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,13 +84,38 @@
             android:textSize="18sp"
             android:layout_marginTop="12dp" />
 
-        <TimePicker
-            android:id="@+id/feedingTimePicker"
+        <LinearLayout
+            android:id="@+id/feedingTimeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <!-- Save Button -->
+            <NumberPicker
+                android:id="@+id/hourPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seperator"
+                android:textSize="24sp"
+                android:padding="4dp" />
+
+            <NumberPicker
+                android:id="@+id/minutePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <NumberPicker
+                android:id="@+id/timePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/btnSaveDetails"
             android:layout_width="match_parent"
@@ -83,3 +126,4 @@
             android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
