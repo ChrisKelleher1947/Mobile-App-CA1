@@ -8,13 +8,11 @@ import com.google.android.material.snackbar.Snackbar
 import org.wit.petcare.databinding.ActivityPetcareBinding
 import org.wit.petcare.main.MainApp
 import org.wit.petcare.models.PetCareModel
-import timber.log.Timber
 import timber.log.Timber.i
 import java.text.SimpleDateFormat
 import java.util.*
 import android.view.Menu
 import android.view.MenuItem
-import android.app.Activity
 import org.wit.petcare.R
 import org.wit.petcare.adapters.PetcareAdapter
 class PetCareActivity : AppCompatActivity() {
@@ -93,7 +91,8 @@ class PetCareActivity : AppCompatActivity() {
                 selectedDate.set(year, month, dayOfMonth)
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
-                binding.tvSelectedDate.text = "Selected Date: $formattedDate"
+                binding.tvSelectedDate.text = getString(R.string.label_selected_date_prefix, formattedDate)
+
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),

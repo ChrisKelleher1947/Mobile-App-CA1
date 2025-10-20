@@ -1,6 +1,5 @@
 package org.wit.petcare.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -25,7 +24,7 @@ class PetRecordListActivity : AppCompatActivity(), PetCareListener  {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
-            if (it.resultCode == Activity.RESULT_OK) {
+            if (it.resultCode == RESULT_OK) {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.petRecords.findAll().size)
             }
