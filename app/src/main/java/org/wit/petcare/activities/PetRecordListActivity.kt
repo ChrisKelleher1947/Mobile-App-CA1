@@ -46,8 +46,27 @@ class PetRecordListActivity : AppCompatActivity(), PetCareListener  {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
+
+        searchView.queryHint = "Search pets..."
+
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { filterPets(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { filterPets(it) }
+                return true
+            }
+        })
+
         return super.onCreateOptionsMenu(menu)
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -78,5 +97,16 @@ class PetRecordListActivity : AppCompatActivity(), PetCareListener  {
         super.onResume()
         binding.recyclerView.adapter = PetcareAdapter(app.petRecords.findAll(), this)
     }
+    private fun filterPets(query: String) {
+        val allPets = app.petRecords.findAll()
+        val filtered = allPets.filter { pet ->
+            pet.petName.contains(query, ignoreCase = true) ||
+                    pet.petType.contains(query, ignoreCase = true)
+        }
+        binding.recyclerView.adapter = PetcareAdapter(filtered, this)
+    }
+
 
 }
+
+
