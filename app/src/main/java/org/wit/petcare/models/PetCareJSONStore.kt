@@ -1,8 +1,6 @@
 package org.wit.petcare.models
 
 import android.content.Context
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 import java.io.File
@@ -26,9 +24,23 @@ class PetCareJSONStore(private val context: Context) {
         save()
     }
 
-    fun update() {
-        save()
+    fun update(pet: PetCareModel) {
+        val foundPet = petRecords.find { p -> p.id == pet.id }
+        if (foundPet != null) {
+            foundPet.petName = pet.petName
+            foundPet.petType = pet.petType
+            foundPet.petBirthday = pet.petBirthday
+            foundPet.notes = pet.notes
+            foundPet.feedingHour = pet.feedingHour
+            foundPet.feedingMinute = pet.feedingMinute
+            foundPet.timePicker = pet.timePicker
+            save()
+            Timber.i("Updated pet: ${foundPet.petName}")
+        } else {
+            Timber.w("Pet not found for update: ${pet.id}")
+        }
     }
+
 
     fun delete(pet: PetCareModel) {
         petRecords.remove(pet)

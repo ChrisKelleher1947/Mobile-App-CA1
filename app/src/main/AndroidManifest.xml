@@ -23,6 +23,7 @@
             <meta-data android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".activities.PetRecordDetailActivity" />
         <activity android:name=".activities.PetCareActivity">
             <meta-data android:name="android.app.lib_name"
                 android:value="" />

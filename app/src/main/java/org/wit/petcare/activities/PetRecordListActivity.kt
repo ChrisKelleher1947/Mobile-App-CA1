@@ -1,6 +1,5 @@
 package org.wit.petcare.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -25,7 +24,7 @@ class PetRecordListActivity : AppCompatActivity(), PetCareListener  {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
-            if (it.resultCode == Activity.RESULT_OK) {
+            if (it.resultCode == RESULT_OK) {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.petRecords.findAll().size)
             }
@@ -61,8 +60,9 @@ class PetRecordListActivity : AppCompatActivity(), PetCareListener  {
     }
 
     override fun onPetRecordClick(petrecord: PetCareModel) {
-        val launcherIntent = Intent(this, PetCareActivity::class.java)
-        getClickResult.launch(launcherIntent)
+        val launcherIntent = Intent(this, PetRecordDetailActivity::class.java)
+        launcherIntent.putExtra("pet_record", petrecord)
+        startActivity(launcherIntent)
     }
 
     private val getClickResult =
@@ -74,5 +74,9 @@ class PetRecordListActivity : AppCompatActivity(), PetCareListener  {
                 notifyItemRangeChanged(0,app.petRecords.findAll().size)
             }
         }
+    override fun onResume() {
+        super.onResume()
+        binding.recyclerView.adapter = PetcareAdapter(app.petRecords.findAll(), this)
+    }
 
 }
